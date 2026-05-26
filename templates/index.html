@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+    <div>
+        <h1>Smart AI Resume Screening</h1>
+        <p>Upload resumes, extract skills, analyze fit, and review explainable ATS predictions instantly.</p>
+        <a class="button" href="#upload-section">Start Screening</a>
+    </div>
+</section>
+
+<section id="upload-section" class="upload-panel">
+    <h2>Upload a Resume</h2>
+    <form action="{{ url_for('parse_upload') }}" method="post" enctype="multipart/form-data" class="upload-form">
+        <label for="resume">Choose PDF, DOCX, or TXT</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx,.txt" required />
+        <button type="submit">Analyze Resume</button>
+    </form>
+</section>
+
+<section class="features-grid">
+    <article>
+        <h3>Resume Parsing</h3>
+        <p>Extract contact details, skills, experience, and education from uploaded resumes.</p>
+    </article>
+    <article>
+        <h3>ATS Score Prediction</h3>
+        <p>Generate an explainable ATS fit score to identify top candidates quickly.</p>
+    </article>
+    <article>
+        <h3>Job Matching</h3>
+        <p>Match resume skills against target job keywords and recommend next steps.</p>
+    </article>
+    <article>
+        <h3>Dashboard Analytics</h3>
+        <p>Track candidate quality, trending skills, and industry performance in one place.</p>
+    </article>
+</section>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-card">
+    <h2>Resume Analysis Results</h2>
+    <div class="results-grid">
+        <div class="card info-card">
+            <h3>Candidate Summary</h3>
+            <p><strong>Filename:</strong> {{ filename }}</p>
+            <p><strong>Email:</strong> {{ parsed.contact.email }}</p>
+            <p><strong>Phone:</strong> {{ parsed.contact.phone }}</p>
+            <p><strong>Education:</strong> {{ parsed.education }}</p>
+            <p><strong>Experience:</strong> {{ parsed.experience_years }} years</p>
+        </div>
+
+        <div class="card score-card">
+            <h3>ATS Score</h3>
+            <div class="score-circle">{{ ats_score }}%</div>
+            <p class="recommendation">{{ recommendation }}</p>
+            <p><strong>Job match:</strong> {{ match_score }}%</p>
+        </div>
+    </div>
+
+    <div class="card full-card">
+        <h3>Extracted Skills</h3>
+        {% if parsed.skills %}
+            <ul class="tag-list">
+                {% for skill in parsed.skills %}
+                    <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No skills were detected in this resume snapshot.</p>
+        {% endif %}
+    </div>
+
+    <div class="card full-card">
+        <h3>Explainable AI Insights</h3>
+        <ul>
+            {% for item in explanation.contributions %}
+                <li><strong>{{ item.feature }}:</strong> {{ item.message }}</li>
+            {% endfor %}
+        </ul>
+        <p><strong>Training details:</strong> Using resume features and job keyword matching to simulate explainable ATS scoring.</p>
+    </div>
+</section>
+{% endblock %}

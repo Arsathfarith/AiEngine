@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-card">
+    <h2>Analytics Overview</h2>
+    <div class="card full-card">
+        <h3>Candidate Funnel</h3>
+        <p>Use this page to review profile quality, job match ratios, and skill coverage across submitted resumes.</p>
+    </div>
+
+    <div class="card info-card">
+        <h3>ATS Score Distribution</h3>
+        <p>Average ATS score: <strong>{{ analytics.average_ats }}%</strong></p>
+        <p>High-performing candidates: {{ analytics.role_performance[0].role }}</p>
+    </div>
+
+    <div class="card info-card">
+        <h3>Skill Coverage</h3>
+        <ul>
+            {% for skill, count in analytics.top_skills %}
+                <li>{{ skill }} appears in {{ count }} candidate resumes</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="card full-card">
+        <h3>Job Match Pipeline</h3>
+        <p>The analytics engine uses resume skill extraction and target keyword match rates to simulate job matching signals.</p>
+    </div>
+</section>
+{% endblock %}

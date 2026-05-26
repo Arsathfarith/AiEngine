@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-card">
+    <h2>Recruiting Dashboard</h2>
+    <div class="stats-grid">
+        <div class="stat-card"><h3>Average ATS</h3><p>{{ analytics.average_ats }}%</p></div>
+        <div class="stat-card"><h3>Sample Submissions</h3><p>{{ analytics.submissions|length }}</p></div>
+        <div class="stat-card"><h3>Top Skill</h3><p>{{ analytics.top_skills[0][0] }}</p></div>
+    </div>
+
+    <div class="card full-card">
+        <h3>Top Skills Trend</h3>
+        <ol>
+            {% for skill, count in analytics.top_skills %}
+                <li>{{ skill }} &mdash; {{ count }} mentions</li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    <div class="card full-card">
+        <h3>Industry Distribution</h3>
+        <ul>
+            {% for industry, count in analytics.industry_distribution.items() %}
+                <li>{{ industry }}: {{ count }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="card full-card">
+        <h3>Role Performance</h3>
+        <table>
+            <thead>
+                <tr><th>Role</th><th>ATS Score</th><th>Industry</th></tr>
+            </thead>
+            <tbody>
+                {% for item in analytics.role_performance %}
+                    <tr>
+                        <td>{{ item.role }}</td>
+                        <td>{{ item.ats }}%</td>
+                        <td>{{ item.industry }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
