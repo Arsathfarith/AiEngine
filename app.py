@@ -1,4 +1,5 @@
 import os
+import tempfile
 from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from ai_engine.resume_parser import parse_resume
@@ -9,7 +10,8 @@ import config
 
 app = Flask(__name__)
 app.config.from_object(config)
-os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+if os.path.isdir(app.config["UPLOAD_FOLDER"]):
+    os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 MODEL = build_model()
 
@@ -39,10 +41,11 @@ def parse_upload():
         return redirect(request.url)
 
     filename = secure_filename(file.filename)
-    save_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-    file.save(save_path)
+    with tempfile.TemporaryDirectory() as temp_dir:
+        save_path = os.path.join(temp_dir, filename)
+        file.save(save_path)
+        parsed = parse_resume(save_path)
 
-    parsed = parse_resume(save_path)
     result = score_resume(parsed, MODEL)
     explanation = explain_prediction(MODEL, result["feature_vector"], parsed)
 
