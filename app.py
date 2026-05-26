@@ -10,8 +10,6 @@ import config
 
 app = Flask(__name__)
 app.config.from_object(config)
-if os.path.isdir(app.config["UPLOAD_FOLDER"]):
-    os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 MODEL = build_model()
 
