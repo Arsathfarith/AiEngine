@@ -52,6 +52,7 @@ def parse_upload():
         "ats_score": result["ats_score"],
         "match_score": result["match_score"],
         "recommendation": result["recommendation"],
+        "feature_metrics": result["feature_metrics"],
         "explanation": explanation,
         "filename": filename,
     }

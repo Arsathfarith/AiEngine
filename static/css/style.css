@@ -168,6 +168,47 @@ nav a {
     font-weight: 600;
 }
 
+.feature-meter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+}
+
+.feature-meter {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.feature-meter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.feature-meter-header span {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.feature-meter-header strong {
+    text-align: right;
+}
+
+.meter-track {
+    height: 0.7rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e5e7eb;
+}
+
+.meter-track span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #1d4ed8, #059669);
+}
+
 table {
     width: 100%;
     border-collapse: collapse;

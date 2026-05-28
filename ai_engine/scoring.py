@@ -50,10 +50,33 @@ def score_resume(parsed, model):
     ats_score = round(probability * 100, 1)
     match_score = round(features[3] * 100, 1)
     recommendation = "Strong fit" if probability >= 0.65 else "Consider alternate role" if probability >= 0.35 else "Needs stronger fit"
+    feature_metrics = [
+        {
+            "label": "Skills",
+            "value": f"{int(features[0])} found",
+            "percent": round(min(features[0] / len(JOB_MATCH_SKILLS), 1) * 100, 1),
+        },
+        {
+            "label": "Experience",
+            "value": "Fresher" if int(features[1]) == 0 else f"{int(features[1])} years",
+            "percent": round(min(features[1] / 10, 1) * 100, 1),
+        },
+        {
+            "label": "Education",
+            "value": parsed["education"],
+            "percent": round(min(features[2] / 5, 1) * 100, 1),
+        },
+        {
+            "label": "Job Match",
+            "value": f"{match_score}%",
+            "percent": match_score,
+        },
+    ]
 
     return {
         "feature_vector": features,
         "ats_score": ats_score,
         "match_score": match_score,
         "recommendation": recommendation,
+        "feature_metrics": feature_metrics,
     }

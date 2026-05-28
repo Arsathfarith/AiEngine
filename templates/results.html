@@ -5,11 +5,12 @@
     <div class="results-grid">
         <div class="card info-card">
             <h3>Candidate Summary</h3>
+            <p><strong>Name:</strong> {{ parsed.contact.name }}</p>
             <p><strong>Filename:</strong> {{ filename }}</p>
             <p><strong>Email:</strong> {{ parsed.contact.email }}</p>
             <p><strong>Phone:</strong> {{ parsed.contact.phone }}</p>
             <p><strong>Education:</strong> {{ parsed.education }}</p>
-            <p><strong>Experience:</strong> {{ parsed.experience_years }} years</p>
+            <p><strong>Experience:</strong> {{ "Fresher" if parsed.experience_years == 0 else parsed.experience_years ~ " years" }}</p>
         </div>
 
         <div class="card score-card">
@@ -17,6 +18,23 @@
             <div class="score-circle">{{ ats_score }}%</div>
             <p class="recommendation">{{ recommendation }}</p>
             <p><strong>Job match:</strong> {{ match_score }}%</p>
+        </div>
+    </div>
+
+    <div class="card full-card">
+        <h3>Predicted Resume Features</h3>
+        <div class="feature-meter-grid">
+            {% for metric in feature_metrics %}
+                <div class="feature-meter">
+                    <div class="feature-meter-header">
+                        <span>{{ metric.label }}</span>
+                        <strong>{{ metric.value }}</strong>
+                    </div>
+                    <div class="meter-track" aria-label="{{ metric.label }} strength">
+                        <span style="width: {{ metric.percent }}%"></span>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
